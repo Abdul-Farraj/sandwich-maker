@@ -71,5 +71,8 @@ class SandwichMachine:
             print(f"Here is your change: ${change:.2f} ")
         return True
     def make_sandwich(self, sandwich_size, order_ingredients):
-        """Deduct the required ingredients from the resources.
+        """Deduct the required ingredients from the resources."""
+        for item, resource in order_ingredients.items():
+            self.machine_resources[item] -= resource
+        print(f"\n<{sandwich_size} sandwich is ready. Bon appétit!>")
 
