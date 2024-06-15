@@ -76,3 +76,21 @@ class SandwichMachine:
             self.machine_resources[item] -= resource
         print(f"\n<{sandwich_size} sandwich is ready. Bon appétit!>")
 
+sandwich = SandwichMachine(resources)
+while True:
+    response = input("What would you like? (small/medium/large/off/report): ").strip().lower()
+    if response == "off":
+        print("Turning off machine!")
+        break
+    elif response == "report":
+        for item, resource in resources.items():
+            print(f"{item}: {resource}")
+    elif response == "small" or response == "medium" or response == "large":
+        sandwich_recipe = recipes[response]
+        if sandwich.check_resources(sandwich_recipe["ingredients"]):
+            coins_inserted = sandwich.process_coins()
+            if sandwich.transaction_result(coins_inserted, sandwich_recipe["cost"]):
+                sandwich.make_sandwich(response, sandwich_recipe["ingredients"])
+    else:
+        print("Invalid response")
+
